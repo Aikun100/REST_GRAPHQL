@@ -1,0 +1,10 @@
+{
+  "name": "api-showcase-orchestrator",
+  "version": "1.0.0",
+  "description": "Root orchestrator for GraphQL and REST showcase programs",
+  "scripts": {
+    "install:all": "npm install --prefix graphql-program && npm install --prefix rest-program",
+    "start:graphql": "npm start --prefix graphql-program",
+    "start:rest": "npm start --prefix rest-program"
+  }
+}

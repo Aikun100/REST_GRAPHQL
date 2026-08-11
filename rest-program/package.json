@@ -1,0 +1,14 @@
+{
+  "name": "rest-program",
+  "version": "1.0.0",
+  "description": "REST API and Task Management dashboard",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node local-server.js"
+  },
+  "dependencies": {
+    "api-showcase-orchestrator": "file:..",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

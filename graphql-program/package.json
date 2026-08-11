@@ -1,0 +1,16 @@
+{
+  "name": "graphql-program",
+  "version": "1.0.0",
+  "description": "GraphQL API and client dashboard",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node local-server.js"
+  },
+  "dependencies": {
+    "api-showcase-orchestrator": "file:..",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "graphql": "^16.8.1",
+    "graphql-http": "^1.22.0"
+  }
+}

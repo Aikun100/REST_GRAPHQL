@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REST Task Board | API Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="glass-bg-container">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-area">
+        <svg class="rest-logo" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+        <h1>REST API Task Board</h1>
+      </div>
+      <div class="stats-area">
+        <div class="stat-badge">
+          <span class="stat-label">Tasks Done</span>
+          <span class="stat-val" id="statsCount">0/0</span>
+        </div>
+        <div class="status-badge active">
+          <span class="pulse-dot"></span>
+          <span class="status-text">REST Endpoint Connected</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <!-- Left Column: Add Task Form -->
+      <section class="panel form-panel">
+        <h2 class="panel-title">Add New Task</h2>
+        <p class="panel-desc">Triggers: <span class="method-tag post">POST</span> to <code>/api/tasks</code></p>
+
+        <form id="taskForm" class="task-form">
+          <div class="form-group">
+            <label for="taskTitle">Task Title</label>
+            <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+          </div>
+
+          <div class="form-group">
+            <label for="taskDesc">Detailed Description</label>
+            <textarea id="taskDesc" placeholder="Describe the steps, files, or requirements..." rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority">
+              <option value="High">🔴 High Priority</option>
+              <option value="Medium" selected>🟡 Medium Priority</option>
+              <option value="Low">🟢 Low Priority</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn primary-btn full-width">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Create Task</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Center Column: Task List -->
+      <section class="panel list-panel">
+        <div class="list-header">
+          <h2 class="panel-title">Active Tasks</h2>
+          <p class="panel-desc">Triggers: <span class="method-tag get">GET</span> to <code>/api/tasks</code></p>
+        </div>
+
+        <div id="taskList" class="task-list">
+          <!-- Dynamically generated list -->
+          <div class="list-placeholder">
+            <p>Loading tasks from endpoint...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Task Detail Panel -->
+      <section class="panel detail-panel" id="detailPanel">
+        <div class="detail-header-row">
+          <h2 class="panel-title">Task Details</h2>
+          <button id="closeDetailBtn" class="close-btn">&times;</button>
+        </div>
+        <p class="panel-desc">Triggers: <span class="method-tag get">GET</span>, <span class="method-tag put">PUT</span>, or <span class="method-tag delete">DELETE</span> for <code>/api/tasks/:id</code></p>
+
+        <div id="detailContent" class="detail-content empty">
+          <div class="detail-placeholder">
+            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <p>Select an active task card from the center list to view details or modify values.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Inspector Panel (Full Width) -->
+      <section class="panel inspector-panel">
+        <div class="inspector-header">
+          <h2 class="panel-title">REST Console Inspector</h2>
+          <div class="inspector-meta" id="inspectorMeta">
+            <span class="inspector-status-badge">No Request Logged Yet</span>
+          </div>
+        </div>
+        
+        <div class="inspector-split">
+          <div class="inspector-block">
+            <h3>HTTP Request Details</h3>
+            <pre><code class="language-json" id="reqInspectorCode">// Request payload log</code></pre>
+          </div>
+          <div class="inspector-block">
+            <h3>HTTP Response Details</h3>
+            <pre><code class="language-json" id="resInspectorCode">// Response payload log</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>REST API Showcase &bull; Port 5000 &bull; Built with standard Node.js Express</p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast hidden">Task Updated!</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
